@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — no.88 Weybridge</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="https://irp.cdn-website.com/ee87d13b/dms3rep/multi/opt/no.88-Logo-4bec4ed2-142w.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="no.88 admin">
+      <span class="brand-mark">no<span class="dot">.</span>88</span>
+      <span class="admin-tag">admin</span>
+    </a>
+    <button class="btn btn-ghost" id="logoutBtn" hidden>Log out</button>
+  </div>
+</header>
+
+<main class="wrap admin-shell">
+
+  <!-- ================= LOGIN ================= -->
+  <section id="loginSection" class="admin-login">
+    <h1>Sign in</h1>
+    <p>This page is for the no.88 owner only — sign in with the account created for you in Supabase.</p>
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" type="submit">Sign in</button>
+      <div class="form-msg" id="loginMsg"></div>
+    </form>
+  </section>
+
+  <!-- ================= DASHBOARD ================= -->
+  <section id="dashboardSection" hidden>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="bookings">Bookings</button>
+      <button class="admin-tab" data-tab="treatments">Treatments</button>
+    </div>
+
+    <!-- ---------- BOOKINGS TAB ---------- -->
+    <div class="admin-panel" id="panel-bookings">
+      <div class="section-head">
+        <h2>Bookings</h2>
+        <button class="btn btn-primary" id="showAddBooking">+ Add booking</button>
+      </div>
+
+      <div class="admin-filters" id="bookingFilters">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="pending">Pending</button>
+        <button class="chip" data-filter="confirmed">Confirmed</button>
+        <button class="chip" data-filter="cancelled">Declined</button>
+      </div>
+
+      <!-- add booking form (hidden by default) -->
+      <form id="addBookingForm" class="admin-form" hidden novalidate>
+        <h3>Add a booking</h3>
+        <div class="field">
+          <label for="ab_treatment">Treatment</label>
+          <select id="ab_treatment" required></select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="ab_name">Full name</label>
+            <input type="text" id="ab_name" required>
+          </div>
+          <div class="field">
+            <label for="ab_phone">Phone</label>
+            <input type="tel" id="ab_phone" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ab_email">Email</label>
+          <input type="email" id="ab_email" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="ab_date">Date</label>
+            <input type="date" id="ab_date" required>
+          </div>
+          <div class="field">
+            <label for="ab_time">Time</label>
+            <input type="time" id="ab_time" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ab_notes">Notes (optional)</label>
+          <textarea id="ab_notes"></textarea>
+        </div>
+        <div class="admin-form-actions">
+          <button class="btn btn-primary" type="submit">Save booking</button>
+          <button class="btn btn-ghost" type="button" id="cancelAddBooking">Cancel</button>
+        </div>
+        <div class="form-msg" id="addBookingMsg"></div>
+      </form>
+
+      <p class="loading-note" id="bookingsLoading">Loading bookings…</p>
+      <div id="bookingsList" class="admin-list"></div>
+    </div>
+
+    <!-- ---------- TREATMENTS TAB ---------- -->
+    <div class="admin-panel" id="panel-treatments" hidden>
+      <div class="section-head">
+        <h2>Treatments</h2>
+        <button class="btn btn-primary" id="showAddTreatment">+ Add treatment</button>
+      </div>
+
+      <form id="addTreatmentForm" class="admin-form" hidden novalidate>
+        <h3>Add a treatment</h3>
+        <div class="field-row">
+          <div class="field">
+            <label for="at_name">Name</label>
+            <input type="text" id="at_name" required>
+          </div>
+          <div class="field">
+            <label for="at_category">Category</label>
+            <select id="at_category" required>
+              <option value="massage">Massage</option>
+              <option value="facial">Facial</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="at_duration">Duration (minutes)</label>
+            <input type="number" id="at_duration" min="15" step="5" required>
+          </div>
+          <div class="field">
+            <label for="at_price">Price (£)</label>
+            <input type="number" id="at_price" min="0" step="0.5" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="at_description">Description (optional)</label>
+          <textarea id="at_description"></textarea>
+        </div>
+        <div class="admin-form-actions">
+          <button class="btn btn-primary" type="submit">Save treatment</button>
+          <button class="btn btn-ghost" type="button" id="cancelAddTreatment">Cancel</button>
+        </div>
+        <div class="form-msg" id="addTreatmentMsg"></div>
+      </form>
+
+      <p class="loading-note" id="treatmentsLoading">Loading treatments…</p>
+      <div id="treatmentsList" class="admin-list"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
