@@ -15,13 +15,13 @@
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="index.html">
-      <img src="https://irp.cdn-website.com/ee87d13b/dms3rep/multi/opt/no.88-Logo-4bec4ed2-142w.png" alt="no.88 Weybridge logo">
-      <span>no.88</span>
+    <a class="brand" href="index.html" aria-label="no.88 home">
+      <span class="brand-mark">no<span class="dot">.</span>88</span>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     <nav class="main-nav" id="mainNav">
       <a href="index.html#about">About</a>
+      <a href="index.html#products">Products</a>
       <a href="index.html#treatments">Treatments</a>
       <a href="index.html#room">Treatment room</a>
       <a href="index.html#contact">Contact</a>
@@ -35,22 +35,62 @@
     <div class="wrap">
       <p class="kicker">Request an appointment</p>
       <h1>Book a treatment</h1>
-      <p class="lede">Choose a treatment below and share your details — I'll confirm your appointment time by phone or email. Anything shown greyed out isn't available to book at the moment.</p>
+      <p class="lede">Search for a treatment, pick a date and time, then leave your details — I'll confirm by phone or email. Anything greyed out isn't available to choose.</p>
     </div>
   </section>
 
   <section class="booking-shell" style="border-bottom:none;">
     <div class="wrap booking-grid">
       <div>
+        <!-- Step 1: treatment -->
         <div class="step-label">
           <span class="num">1</span>
           <h2>Choose your treatment</h2>
         </div>
         <p class="loading-note" id="loadingNote">Loading today's treatment menu…</p>
-        <div class="treatment-list" id="treatmentList"></div>
+        <div class="combo" id="treatmentCombo" hidden>
+          <input type="text" class="combo-input" id="comboInput" placeholder="Search treatments — try “massage” or “facial”" autocomplete="off">
+          <div class="combo-panel" id="comboPanel"></div>
+          <div class="combo-selected-tag" id="comboSelectedTag">
+            <span id="comboSelectedLabel"></span>
+            <button type="button" id="comboClear">change</button>
+          </div>
+        </div>
 
+        <!-- Step 2: date & time -->
         <div class="step-label">
           <span class="num">2</span>
+          <h2>Choose a date &amp; time</h2>
+        </div>
+        <div class="chosen-summary" id="dateTimeChosen">
+          <span id="dateTimeChosenLabel"></span>
+          <button type="button" id="dateTimeChange">change</button>
+        </div>
+        <div class="date-time-shell" id="dateTimeShell">
+          <div class="cal-wrap" id="calWrap">
+            <div class="cal-head">
+              <button type="button" id="calPrev" aria-label="Previous month">‹</button>
+              <h4 id="calMonthLabel"></h4>
+              <button type="button" id="calNext" aria-label="Next month">›</button>
+            </div>
+            <div class="cal-dow">
+              <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+          <div class="time-wrap" id="timeWrap">
+            <div class="time-head">
+              <h4 id="timeDateLabel"></h4>
+              <button type="button" id="backToCalendar">‹ choose a different date</button>
+            </div>
+            <div class="time-grid" id="timeGrid"></div>
+            <p class="time-note">Greyed-out times are already booked on this date.</p>
+          </div>
+        </div>
+
+        <!-- Step 3: details -->
+        <div class="step-label">
+          <span class="num">3</span>
           <h2>Your details</h2>
         </div>
 
@@ -69,16 +109,6 @@
             <label for="email">Email address</label>
             <input type="email" id="email" name="email" required autocomplete="email">
           </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="preferred_date">Preferred date</label>
-              <input type="date" id="preferred_date" name="preferred_date" required>
-            </div>
-            <div class="field">
-              <label for="preferred_time">Preferred time (optional)</label>
-              <input type="text" id="preferred_time" name="preferred_time" placeholder="e.g. Morning, or 2pm">
-            </div>
-          </div>
           <div class="field">
             <label for="notes">Anything I should know? (optional)</label>
             <textarea id="notes" name="notes" placeholder="Allergies, areas of focus, first visit, etc."></textarea>
@@ -91,7 +121,7 @@
 
       <aside class="summary-card">
         <h3>Your booking</h3>
-        <div id="summaryBody"><p class="empty">Choose a treatment on the left to see a summary here.</p></div>
+        <div id="summaryBody"><p class="empty">Choose a treatment, date and time to see a summary here.</p></div>
       </aside>
     </div>
   </section>
@@ -100,12 +130,12 @@
 <footer class="site-footer">
   <div class="wrap">
     <div class="foot-top">
-      <a class="brand" href="index.html">
-        <img src="https://irp.cdn-website.com/ee87d13b/dms3rep/multi/opt/no.88+Logo-177w.png" alt="no.88 Weybridge logo">
-        <span>no.88</span>
+      <a class="brand" href="index.html" aria-label="no.88 home">
+        <span class="brand-mark">no<span class="dot">.</span>88</span>
       </a>
       <nav>
         <a href="index.html#about">About</a>
+        <a href="index.html#products">Products</a>
         <a href="index.html#treatments">Treatments</a>
         <a href="index.html#room">Treatment room</a>
         <a href="index.html#contact">Contact</a>
