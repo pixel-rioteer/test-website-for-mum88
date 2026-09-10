@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a treatment — no.88 Weybridge</title>
+<meta name="description" content="Request a massage or facial treatment appointment at no.88, Weybridge.">
+<link rel="icon" href="https://irp.cdn-website.com/ee87d13b/dms3rep/multi/opt/no.88-Logo-4bec4ed2-142w.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="https://irp.cdn-website.com/ee87d13b/dms3rep/multi/opt/no.88-Logo-4bec4ed2-142w.png" alt="no.88 Weybridge logo">
+      <span>no.88</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#treatments">Treatments</a>
+      <a href="index.html#room">Treatment room</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="btn btn-primary" href="book.html">Book a treatment</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="book-hero">
+    <div class="wrap">
+      <p class="kicker">Request an appointment</p>
+      <h1>Book a treatment</h1>
+      <p class="lede">Choose a treatment below and share your details — I'll confirm your appointment time by phone or email. Anything shown greyed out isn't available to book at the moment.</p>
+    </div>
+  </section>
+
+  <section class="booking-shell" style="border-bottom:none;">
+    <div class="wrap booking-grid">
+      <div>
+        <div class="step-label">
+          <span class="num">1</span>
+          <h2>Choose your treatment</h2>
+        </div>
+        <p class="loading-note" id="loadingNote">Loading today's treatment menu…</p>
+        <div class="treatment-list" id="treatmentList"></div>
+
+        <div class="step-label">
+          <span class="num">2</span>
+          <h2>Your details</h2>
+        </div>
+
+        <form id="bookingForm" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="full_name">Full name</label>
+              <input type="text" id="full_name" name="full_name" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="preferred_date">Preferred date</label>
+              <input type="date" id="preferred_date" name="preferred_date" required>
+            </div>
+            <div class="field">
+              <label for="preferred_time">Preferred time (optional)</label>
+              <input type="text" id="preferred_time" name="preferred_time" placeholder="e.g. Morning, or 2pm">
+            </div>
+          </div>
+          <div class="field">
+            <label for="notes">Anything I should know? (optional)</label>
+            <textarea id="notes" name="notes" placeholder="Allergies, areas of focus, first visit, etc."></textarea>
+          </div>
+
+          <button class="btn btn-primary" id="submitBtn" type="submit" disabled>Request booking</button>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+      </div>
+
+      <aside class="summary-card">
+        <h3>Your booking</h3>
+        <div id="summaryBody"><p class="empty">Choose a treatment on the left to see a summary here.</p></div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="brand" href="index.html">
+        <img src="https://irp.cdn-website.com/ee87d13b/dms3rep/multi/opt/no.88+Logo-177w.png" alt="no.88 Weybridge logo">
+        <span>no.88</span>
+      </a>
+      <nav>
+        <a href="index.html#about">About</a>
+        <a href="index.html#treatments">Treatments</a>
+        <a href="index.html#room">Treatment room</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="book.html">Book a treatment</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>88 Oatlands Drive, Weybridge, Surrey, KT13 9HS · carla@no-88.co.uk · +44 (0)7830 346 703</span>
+      <span>© 2026 no.88 Ltd. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script type="module" src="book.js"></script>
+</body>
+</html>
