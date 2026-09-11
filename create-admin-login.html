@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create admin login — no.88</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+
+<main class="wrap admin-shell">
+  <section class="admin-login">
+    <h1>Create your admin login</h1>
+    <p>Use this once to set the email and password you'll sign into <code>admin.html</code> with. After it works, delete this file and turn off public sign-ups in Supabase (steps below) — this page can't be used again after that.</p>
+
+    <form id="setupForm" novalidate>
+      <div class="field">
+        <label for="email">Your email</label>
+        <input type="email" id="email" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="password">Choose a password</label>
+        <input type="password" id="password" required minlength="8" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label for="confirm">Confirm password</label>
+        <input type="password" id="confirm" required minlength="8" autocomplete="new-password">
+      </div>
+      <button class="btn btn-primary" type="submit" id="submitBtn">Create my login</button>
+      <div class="form-msg" id="msg"></div>
+    </form>
+  </section>
+</main>
+
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+  const SUPABASE_URL = "https://qcgygucxfekeynwbbwxm.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_frJkFVnpcJ04n4mkHt4BCQ_d3dCB04n";
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const form = document.getElementById("setupForm");
+  const msg = document.getElementById("msg");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.className = "form-msg";
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+
+    if (password !== confirm) {
+      msg.textContent = "Those passwords don't match.";
+      msg.classList.add("show", "err");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Creating…";
+
+    const { data, error } = await supabase.auth.signUp({ email, password });
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Create my login";
+
+    if (error) {
+      msg.textContent = "Couldn't create that login: " + error.message;
+      msg.classList.add("show", "err");
+      return;
+    }
+
+    if (data.user && data.user.identities && data.user.identities.length === 0) {
+      msg.textContent = "That email is already registered — go to admin.html and sign in, or reset your password from there.";
+      msg.classList.add("show", "err");
+      return;
+    }
+
+    msg.innerHTML = "Login created. If Supabase asks for email confirmation you'll get an email to confirm first — otherwise you can sign in at <code>admin.html</code> right away. Once it works, delete this file and turn off public sign-ups (see README).";
+    msg.classList.add("show", "ok");
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
